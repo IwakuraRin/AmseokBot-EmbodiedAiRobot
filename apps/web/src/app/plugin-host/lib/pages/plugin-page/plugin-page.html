@@ -1,0 +1,7 @@
+<app-page-header title="插件页面" description="该路由将由经过验证的插件 manifest 驱动。" />
+
+<mat-card appearance="outlined">
+  <mat-card-content>
+    插件：{{ routeIdentity().pluginId || '未知' }}；页面：{{ routeIdentity().pageId || '未知' }}
+  </mat-card-content>
+</mat-card>

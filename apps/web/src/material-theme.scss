@@ -1,0 +1,43 @@
+@use '@angular/material' as mat;
+
+@font-face {
+  font-family: 'Source Han Sans CN Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 250 900;
+  src: url('/fonts/source-han-sans/SourceHanSansCN-VF.ttf.woff2') format('woff2-variations');
+}
+
+// Keep the family names quoted in generated Material tokens. The digit in "Source Sans 3"
+// makes an unquoted CSS font-family invalid and would otherwise trigger Material's Roboto fallback.
+$application-font-family: '"Source Sans 3 Variable", "Source Han Sans CN Variable", sans-serif';
+
+html {
+  height: 100%;
+
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: (
+        plain-family: $application-font-family,
+        brand-family: $application-font-family,
+        regular-weight: 400,
+        medium-weight: 500,
+        bold-weight: 700,
+      ),
+      density: 0,
+    )
+  );
+}
+
+body {
+  color-scheme: light;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+  margin: 0;
+  height: 100%;
+}

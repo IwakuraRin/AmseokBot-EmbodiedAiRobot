@@ -1,0 +1,17 @@
+{
+  "name": "nas-for-windows",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev:web": "npm --prefix apps/web start",
+    "dev:api": "dotnet run --project apps/api/NasForWindows.Api.csproj",
+    "dev:agent": "dotnet run --project apps/agent/NasForWindows.Agent.csproj",
+    "dev:manager": "dotnet run --project apps/manager/NasForWindows.Manager.csproj",
+    "build:web": "npm --prefix apps/web run build",
+    "build:backend": "dotnet build NasForWindows.slnx",
+    "test:web": "npm --prefix apps/web test -- --watch=false",
+    "test:backend": "dotnet test NasForWindows.slnx",
+    "lint:boundaries": "npm --prefix apps/web run lint:boundaries",
+    "check": "npm run lint:boundaries && npm run test:web && npm run build:web && npm run test:backend"
+  }
+}

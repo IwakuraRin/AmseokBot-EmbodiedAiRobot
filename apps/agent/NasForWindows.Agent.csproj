@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-NasForWindows.Agent-47804d0c-0719-4916-8f77-a171204d87cf</UserSecretsId>
+    <NoDefaultLaunchSettingsFile>True</NoDefaultLaunchSettingsFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.11" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="10.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\libs\NasForWindows.Contracts\NasForWindows.Contracts.csproj" />
+    <ProjectReference Include="..\..\libs\NasForWindows.Operations\NasForWindows.Operations.csproj" />
+    <ProjectReference Include="..\..\libs\NasForWindows.Windows\NasForWindows.Windows.csproj" />
+  </ItemGroup>
+</Project>

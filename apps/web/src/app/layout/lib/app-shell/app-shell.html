@@ -1,0 +1,26 @@
+<mat-toolbar>
+  <a class="brand-lockup" routerLink="/dashboard" aria-label="Amseok NasForWindows 首页">
+    <span class="brand-name">Amseok</span>
+    <span class="product-name">NasForWindows</span>
+  </a>
+</mat-toolbar>
+
+<div class="app-layout">
+  <nav class="side-navigation" aria-label="主菜单">
+    <mat-nav-list>
+      <a
+        mat-list-item
+        routerLink="/dashboard"
+        routerLinkActive="active-navigation-item"
+        ariaCurrentWhenActive="page"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        系统概览
+      </a>
+    </mat-nav-list>
+  </nav>
+
+  <main>
+    <router-outlet />
+  </main>
+</div>

@@ -1,0 +1,7 @@
+<header>
+  <h1>{{ title() }}</h1>
+  @if (description(); as text) {
+    <p>{{ text }}</p>
+  }
+  <ng-content select="[page-actions]" />
+</header>

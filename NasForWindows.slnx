@@ -1,0 +1,23 @@
+<Solution>
+  <Folder Name="/apps/" />
+  <Folder Name="/apps/agent/">
+    <Project Path="apps/agent/NasForWindows.Agent.csproj" />
+  </Folder>
+  <Folder Name="/apps/api/">
+    <Project Path="apps/api/NasForWindows.Api.csproj" />
+  </Folder>
+  <Folder Name="/apps/manager/">
+    <Project Path="apps/manager/NasForWindows.Manager.csproj" />
+  </Folder>
+  <Folder Name="/libs/">
+    <Project Path="libs/NasForWindows.Contracts/NasForWindows.Contracts.csproj" />
+    <Project Path="libs/NasForWindows.Operations/NasForWindows.Operations.csproj" />
+    <Project Path="libs/NasForWindows.PluginSdk/NasForWindows.PluginSdk.csproj" />
+    <Project Path="libs/NasForWindows.Windows/NasForWindows.Windows.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/NasForWindows.Agent.Tests/NasForWindows.Agent.Tests.csproj" />
+    <Project Path="tests/NasForWindows.Api.Tests/NasForWindows.Api.Tests.csproj" />
+    <Project Path="tests/NasForWindows.ArchitectureTests/NasForWindows.ArchitectureTests.csproj" />
+  </Folder>
+</Solution>

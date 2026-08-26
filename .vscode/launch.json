@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "NasForWindows Web",
+      "type": "chrome",
+      "request": "launch",
+      "preLaunchTask": "dev:web",
+      "url": "http://127.0.0.1:4200/"
+    }
+  ]
+}

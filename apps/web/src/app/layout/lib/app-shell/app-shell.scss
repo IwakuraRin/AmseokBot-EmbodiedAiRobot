@@ -1,0 +1,53 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: flex;
+  min-block-size: 100dvh;
+  flex-direction: column;
+
+  @include mat.toolbar-overrides(
+    (
+      container-background-color: var(--mat-sys-primary),
+      container-text-color: var(--mat-sys-on-primary),
+    )
+  );
+}
+
+.app-layout {
+  display: grid;
+  flex: 1;
+  grid-template-columns: 15rem minmax(0, 1fr);
+}
+
+.side-navigation {
+  border-inline-end: 1px solid var(--mat-sys-outline-variant);
+}
+
+main {
+  min-inline-size: 0;
+}
+
+.brand-lockup {
+  position: relative;
+  display: inline-flex;
+  padding-block-end: 0.75rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.brand-name {
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.015em;
+}
+
+.product-name {
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-end: 0;
+  font-size: 0.625rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
