@@ -3,9 +3,12 @@
     <span class="brand-name">Amseok</span>
     <span class="product-name">NasForWindows</span>
   </a>
+  <span class="toolbar-spacer" aria-hidden="true"></span>
   @if (sessionStore.session(); as session) {
-    <span>{{ session.user.displayName }}</span>
-    <button mat-button type="button" (click)="logout()">退出登录</button>
+    <div class="account-actions">
+      <span class="account-name">{{ session.user.displayName }}</span>
+      <button class="logout-button" mat-button type="button" (click)="logout()">退出登录</button>
+    </div>
   }
 </mat-toolbar>
 
@@ -23,19 +26,45 @@
           系统概览
         </a>
       }
+      @if (sessionStore.can('web.users.manage') || sessionStore.can('audit.read')) {
+        <button
+          class="system-management-toggle"
+          mat-list-item
+          type="button"
+          aria-controls="system-management-navigation"
+          [attr.aria-expanded]="systemManagementExpanded()"
+          (click)="toggleSystemManagement()"
+        >
+          <span matListItemTitle>系统管理</span>
+          <span
+            class="system-management-indicator"
+            matListItemMeta
+            aria-hidden="true"
+            [class.expanded]="systemManagementExpanded()"
+          >
+            ›
+          </span>
+        </button>
+        @if (systemManagementExpanded()) {
+          <div id="system-management-navigation" class="nested-navigation" aria-label="系统管理">
+            @if (sessionStore.can('web.users.manage')) {
+              <a mat-list-item routerLink="/web-users" routerLinkActive="active-navigation-item">
+                Web 用户
+              </a>
+            }
+            @if (sessionStore.can('audit.read')) {
+              <a mat-list-item routerLink="/audit" routerLinkActive="active-navigation-item">
+                审计日志
+              </a>
+            }
+          </div>
+        }
+      }
       @if (sessionStore.can('storage.read')) {
         <a mat-list-item routerLink="/disks" routerLinkActive="active-navigation-item">磁盘</a>
       }
       @if (sessionStore.can('plugins.manage')) {
         <a mat-list-item routerLink="/plugins" routerLinkActive="active-navigation-item">插件</a>
-      }
-      @if (sessionStore.can('web.users.manage')) {
-        <a mat-list-item routerLink="/web-users" routerLinkActive="active-navigation-item">
-          Web 用户
-        </a>
-      }
-      @if (sessionStore.can('audit.read')) {
-        <a mat-list-item routerLink="/audit" routerLinkActive="active-navigation-item">审计日志</a>
       }
     </mat-nav-list>
   </nav>

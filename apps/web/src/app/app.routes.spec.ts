@@ -11,15 +11,17 @@ describe('application routes', () => {
     roles: ['Owner'],
     permissions: ['system.overview.read'],
   });
+  const bootstrapStatus = signal({ requiresBootstrap: false, canInitialize: false });
   const sessionStore = {
     session: ownerSession.asReadonly(),
-    bootstrapStatus: signal({ requiresBootstrap: false, canInitialize: false }).asReadonly(),
+    bootstrapStatus: bootstrapStatus.asReadonly(),
     can: (permission: string) => ownerSession()?.permissions.includes(permission) ?? false,
     login: async () => undefined,
     logout: async () => ownerSession.set(null),
   };
 
   beforeEach(() => {
+    bootstrapStatus.set({ requiresBootstrap: false, canInitialize: false });
     ownerSession.set({
       user: { id: 'owner-id', userName: 'owner', displayName: 'Owner' },
       roles: ['Owner'],
@@ -35,6 +37,14 @@ describe('application routes', () => {
     const harness = await RouterTestingHarness.create('/login');
 
     expect(harness.routeNativeElement?.textContent).toContain('登录 Amseok');
+  });
+
+  it('redirects the root route to first-Owner setup when bootstrap is required', async () => {
+    ownerSession.set(null);
+    bootstrapStatus.set({ requiresBootstrap: true, canInitialize: true });
+    const harness = await RouterTestingHarness.create('/');
+
+    expect(harness.routeNativeElement?.textContent).toContain('创建第一个 Owner');
   });
 
   it('loads the protected application shell for an authorized session', async () => {

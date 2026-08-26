@@ -1,0 +1,159 @@
+<div class="system-overview">
+  <header class="page-heading">
+    <h1>系统概览</h1>
+    <p>查看当前主机的硬件参数与资源占用。</p>
+  </header>
+
+  <section class="hardware-section" aria-labelledby="hardware-heading">
+    <h2 id="hardware-heading">硬件参数</h2>
+
+    @if (inventory(); as hardware) {
+      <dl class="hardware-details">
+        <div class="hardware-row">
+          <dt>操作系统</dt>
+          <dd>{{ hardware.operatingSystem }}</dd>
+        </div>
+        <div class="hardware-row">
+          <dt>处理器</dt>
+          <dd>
+            {{ hardware.cpu.model }}
+            <span class="secondary-value">
+              {{ hardware.cpu.physicalCoreCount }} 核 ·
+              {{ hardware.cpu.logicalProcessorCount }} 线程
+            </span>
+          </dd>
+        </div>
+        <div class="hardware-row">
+          <dt>内存</dt>
+          <dd>{{ formatBytes(hardware.totalMemoryBytes) }}</dd>
+        </div>
+        <div class="hardware-row">
+          <dt>主板</dt>
+          <dd>{{ formatMainboard(hardware.mainboard) }}</dd>
+        </div>
+        <div class="hardware-row">
+          <dt>显卡</dt>
+          <dd>
+            @for (gpu of hardware.gpus; track gpu.id) {
+              <span class="value-line">
+                {{ gpu.model }}
+                <span class="secondary-value">
+                  {{ formatGpuMemory(gpu) }}
+                </span>
+              </span>
+            } @empty {
+              未检测到
+            }
+          </dd>
+        </div>
+        <div class="hardware-row">
+          <dt>物理磁盘</dt>
+          <dd>
+            @for (disk of hardware.physicalDisks; track disk.id) {
+              <span class="value-line">
+                {{ disk.model }}
+                <span class="secondary-value">
+                  {{ formatBytes(disk.sizeBytes) }} · {{ disk.busType }}
+                </span>
+              </span>
+            } @empty {
+              未检测到
+            }
+          </dd>
+        </div>
+      </dl>
+    } @else if (inventoryUnavailable()) {
+      <p class="status-message" role="alert">303 Agent may not be running.</p>
+    } @else {
+      <p class="status-message">正在读取硬件参数…</p>
+    }
+  </section>
+
+  <section class="usage-section" aria-labelledby="usage-heading">
+    <div class="section-heading">
+      <h2 id="usage-heading">当前占用</h2>
+      @if (metrics(); as currentMetrics) {
+        <time [attr.datetime]="currentMetrics.sampledAt">
+          更新于 {{ currentMetrics.sampledAt | date: 'HH:mm:ss' }}
+        </time>
+      }
+    </div>
+
+    @if (metrics(); as currentMetrics) {
+      <div class="usage-list">
+        <div class="usage-item">
+          <div class="usage-summary">
+            <span>CPU</span>
+            <strong>{{ formatPercent(currentMetrics.cpu.utilizationPercent) }}</strong>
+          </div>
+          <div
+            class="usage-track"
+            role="progressbar"
+            aria-label="CPU 占用"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            [attr.aria-valuenow]="currentMetrics.cpu.utilizationPercent"
+          >
+            <span
+              class="usage-fill"
+              [style.inline-size.%]="boundedPercent(currentMetrics.cpu.utilizationPercent)"
+            ></span>
+          </div>
+        </div>
+
+        <div class="usage-item">
+          <div class="usage-summary">
+            <span>内存</span>
+            <strong>{{ formatPercent(currentMetrics.memory.utilizationPercent) }}</strong>
+          </div>
+          <span class="usage-detail">
+            {{ formatBytes(currentMetrics.memory.usedBytes) }} /
+            {{ formatBytes(currentMetrics.memory.totalBytes) }}
+          </span>
+          <div
+            class="usage-track"
+            role="progressbar"
+            aria-label="内存占用"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            [attr.aria-valuenow]="currentMetrics.memory.utilizationPercent"
+          >
+            <span
+              class="usage-fill"
+              [style.inline-size.%]="boundedPercent(currentMetrics.memory.utilizationPercent)"
+            ></span>
+          </div>
+        </div>
+
+        @for (gpu of gpuUsages(); track gpu.id) {
+          <div class="usage-item">
+            <div class="usage-summary">
+              <span>GPU · {{ gpu.label }}</span>
+              <strong>{{ formatPercent(gpu.utilizationPercent) }}</strong>
+            </div>
+            @if (gpu.memoryDescription) {
+              <span class="usage-detail">显存 {{ gpu.memoryDescription }}</span>
+            }
+            <div
+              class="usage-track"
+              role="progressbar"
+              [attr.aria-label]="gpu.label + ' 占用'"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              [attr.aria-valuenow]="gpu.utilizationPercent"
+            >
+              <span
+                class="usage-fill"
+                [style.inline-size.%]="boundedPercent(gpu.utilizationPercent)"
+              ></span>
+            </div>
+          </div>
+        }
+      </div>
+    } @else if (metricsUnavailable()) {
+      <p class="status-message" role="alert">303 Agent may not be running.</p>
+    } @else {
+      <p class="status-message">正在读取资源占用…</p>
+    }
+  </section>
+</div>

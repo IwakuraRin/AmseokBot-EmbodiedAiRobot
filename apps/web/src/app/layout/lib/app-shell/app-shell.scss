@@ -20,11 +20,54 @@
 }
 
 .side-navigation {
+  position: relative;
+  z-index: 1;
+  background-color: var(--mat-sys-surface-container-low);
   border-inline-end: 1px solid var(--mat-sys-outline-variant);
+  box-shadow: 2px 0 5px color-mix(in srgb, var(--mat-sys-shadow) 10%, transparent);
+
+  @include mat.list-overrides(
+    (
+      active-indicator-shape: 0.5rem,
+    )
+  );
 }
 
 main {
   min-inline-size: 0;
+  background-color: var(--mat-sys-surface);
+}
+
+.system-management-toggle {
+  --mat-focus-indicator-display: none;
+  --mat-list-active-indicator-color: transparent;
+  --mat-list-list-item-container-color: transparent;
+  --mat-list-list-item-focus-state-layer-opacity: 0;
+  --mat-list-list-item-hover-state-layer-opacity: 0;
+
+  background-color: transparent;
+  text-align: start;
+
+  &:focus-visible .mat-mdc-list-item-title {
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
+  }
+}
+
+.system-management-indicator {
+  font-size: 1.75rem;
+  line-height: 1;
+  transition: transform 150ms ease-out;
+
+  &.expanded {
+    transform: rotate(90deg);
+  }
+}
+
+.nested-navigation {
+  box-sizing: border-box;
+  display: grid;
+  padding-inline: 0.75rem 0.25rem;
 }
 
 .brand-lockup {
@@ -50,4 +93,27 @@ main {
   font-weight: 400;
   line-height: 1;
   letter-spacing: 0.02em;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.account-actions {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  margin-inline-start: auto;
+}
+
+.account-name {
+  white-space: nowrap;
+}
+
+.logout-button {
+  min-inline-size: auto;
+  block-size: 1.75rem;
+  padding-inline: 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1;
 }

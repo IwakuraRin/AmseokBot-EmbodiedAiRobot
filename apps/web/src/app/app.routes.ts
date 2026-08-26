@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { authenticatedGuard, permissionGuard } from './core/authorization/authorization';
 
 export const routes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
   {
     path: '',
     loadChildren: () =>
