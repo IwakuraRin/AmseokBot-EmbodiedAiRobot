@@ -3,6 +3,9 @@
 This project is the low-privilege ASP.NET Core HTTP boundary. Read the repository `AGENTS.md` and
 `ARCHITECTURE.md` before changing it.
 
+Read `WEB_ACCESS_SECURITY_ARCHITECTURE.md` before changing authentication, authorization, Web
+users, roles, permissions, Owner bootstrap, sessions, cookies, antiforgery, or audit behavior.
+
 - Organize behavior as vertical slices under `Features/<capability>/<use-case>`. Keep endpoints,
   validation, orchestration, and slice-local models together instead of adding generic
   Controllers/Services/Repositories folders.

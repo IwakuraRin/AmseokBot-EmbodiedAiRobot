@@ -1,0 +1,30 @@
+<app-page-header title="审计日志" subtitle="查看身份、授权和管理操作的安全记录。" />
+
+<table mat-table [dataSource]="events()">
+  <ng-container matColumnDef="occurredAtUtc">
+    <th mat-header-cell *matHeaderCellDef>时间</th>
+    <td mat-cell *matCellDef="let event">{{ event.occurredAtUtc }}</td>
+  </ng-container>
+  <ng-container matColumnDef="actorName">
+    <th mat-header-cell *matHeaderCellDef>操作者</th>
+    <td mat-cell *matCellDef="let event">{{ event.actorName || '匿名' }}</td>
+  </ng-container>
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef>操作</th>
+    <td mat-cell *matCellDef="let event">{{ event.action }}</td>
+  </ng-container>
+  <ng-container matColumnDef="target">
+    <th mat-header-cell *matHeaderCellDef>目标</th>
+    <td mat-cell *matCellDef="let event">{{ event.targetType }} {{ event.targetId }}</td>
+  </ng-container>
+  <ng-container matColumnDef="outcome">
+    <th mat-header-cell *matHeaderCellDef>结果</th>
+    <td mat-cell *matCellDef="let event">{{ event.outcome }}</td>
+  </ng-container>
+  <ng-container matColumnDef="sourceIp">
+    <th mat-header-cell *matHeaderCellDef>来源 IP</th>
+    <td mat-cell *matCellDef="let event">{{ event.sourceIp }}</td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

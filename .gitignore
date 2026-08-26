@@ -33,6 +33,7 @@ yarn-error.log
 
 # Miscellaneous
 **/.angular/cache
+/apps/api/data/
 .sass-cache/
 /connect.lock
 /coverage
@@ -40,6 +41,26 @@ yarn-error.log
 testem.log
 /typings
 __screenshots__/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+**/appsettings.Local.json
+**/appsettings.*.local.json
+**/secrets.json
+*.key
+*.pem
+*.p12
+*.pfx
+*.snk
+
+# Runtime databases and protected key material
+*.db
+*.db-shm
+*.db-wal
+**/data-protection-keys/
 
 # System files
 .DS_Store

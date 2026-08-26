@@ -1,0 +1,40 @@
+<main>
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>创建第一个 Owner</mat-card-title>
+      <mat-card-subtitle>请先在本机 Manager Terminal 中生成十分钟一次性令牌</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <mat-form-field>
+          <mat-label>初始化令牌</mat-label>
+          <input matInput formControlName="token" autocomplete="off" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>用户名</mat-label>
+          <input matInput formControlName="userName" autocomplete="username" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>显示名称</mat-label>
+          <input matInput formControlName="displayName" autocomplete="name" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>密码</mat-label>
+          <input matInput type="password" formControlName="password" autocomplete="new-password" />
+          <mat-hint>至少 12 位，并包含大小写字母、数字和符号</mat-hint>
+        </mat-form-field>
+
+        @if (errorMessage()) {
+          <p role="alert">{{ errorMessage() }}</p>
+        }
+
+        <button mat-flat-button type="submit" [disabled]="submitting()">
+          {{ submitting() ? '正在创建…' : '创建 Owner' }}
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</main>

@@ -7,6 +7,8 @@ Before modifying code, read `ARCHITECTURE.md` and every applicable, more deeply 
 
 - Frontend work: `apps/web/AGENTS.md`.
 - API work: `apps/api/AGENTS.md`.
+- Web identity, authorization, user administration, bootstrap, session, or audit work:
+  `apps/api/WEB_ACCESS_SECURITY_ARCHITECTURE.md`.
 - Privileged Agent work: `apps/agent/AGENTS.md`.
 - Terminal Manager work: `apps/manager/AGENTS.md`.
 - Shared backend library work: `libs/AGENTS.md`.

@@ -1,0 +1,31 @@
+<main>
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>登录 Amseok</mat-card-title>
+      <mat-card-subtitle>使用 Web 管理账户进入 NasForWindows</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <mat-form-field>
+          <mat-label>用户名</mat-label>
+          <input matInput formControlName="userName" autocomplete="username" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>密码</mat-label>
+          <input matInput type="password" formControlName="password" autocomplete="current-password" />
+        </mat-form-field>
+
+        <mat-checkbox formControlName="rememberMe">保持登录</mat-checkbox>
+
+        @if (errorMessage()) {
+          <p role="alert">{{ errorMessage() }}</p>
+        }
+
+        <button mat-flat-button type="submit" [disabled]="submitting()">
+          {{ submitting() ? '正在登录…' : '登录' }}
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</main>

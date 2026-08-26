@@ -3,20 +3,40 @@
     <span class="brand-name">Amseok</span>
     <span class="product-name">NasForWindows</span>
   </a>
+  @if (sessionStore.session(); as session) {
+    <span>{{ session.user.displayName }}</span>
+    <button mat-button type="button" (click)="logout()">退出登录</button>
+  }
 </mat-toolbar>
 
 <div class="app-layout">
   <nav class="side-navigation" aria-label="主菜单">
     <mat-nav-list>
-      <a
-        mat-list-item
-        routerLink="/dashboard"
-        routerLinkActive="active-navigation-item"
-        ariaCurrentWhenActive="page"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        系统概览
-      </a>
+      @if (sessionStore.can('system.overview.read')) {
+        <a
+          mat-list-item
+          routerLink="/dashboard"
+          routerLinkActive="active-navigation-item"
+          ariaCurrentWhenActive="page"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          系统概览
+        </a>
+      }
+      @if (sessionStore.can('storage.read')) {
+        <a mat-list-item routerLink="/disks" routerLinkActive="active-navigation-item">磁盘</a>
+      }
+      @if (sessionStore.can('plugins.manage')) {
+        <a mat-list-item routerLink="/plugins" routerLinkActive="active-navigation-item">插件</a>
+      }
+      @if (sessionStore.can('web.users.manage')) {
+        <a mat-list-item routerLink="/web-users" routerLinkActive="active-navigation-item">
+          Web 用户
+        </a>
+      }
+      @if (sessionStore.can('audit.read')) {
+        <a mat-list-item routerLink="/audit" routerLinkActive="active-navigation-item">审计日志</a>
+      }
     </mat-nav-list>
   </nav>
 

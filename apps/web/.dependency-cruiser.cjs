@@ -25,6 +25,20 @@ module.exports = {
       to: { path: '^src/app/shared/ui/lib/' },
     },
     {
+      name: 'core-private-from-outside',
+      comment: 'Core capabilities are consumed through focused public entry points.',
+      severity: 'error',
+      from: { pathNot: '^src/app/core/' },
+      to: { path: '^src/app/core/[^/]+/lib/' },
+    },
+    {
+      name: 'no-cross-core-private-imports',
+      comment: 'One core capability may not deep-import another core capability.',
+      severity: 'error',
+      from: { path: '^src/app/core/([^/]+)/' },
+      to: { path: '^src/app/core/[^/]+/lib/', pathNot: '^src/app/core/$1/lib/' },
+    },
+    {
       name: 'layout-private-from-outside',
       comment: 'Layout implementation is private.',
       severity: 'error',
