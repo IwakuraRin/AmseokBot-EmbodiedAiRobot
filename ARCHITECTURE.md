@@ -29,10 +29,13 @@ Terminal Manager -> explicit local management endpoints
 - `NasForWindows.Contracts` contains transport contracts and depends on no host.
 - `NasForWindows.Operations` contains long-running operation concepts and depends on no host.
 - `NasForWindows.PluginSdk` contains safe plugin manifest and action contracts.
-- `NasForWindows.Windows` isolates Windows-specific adapters and is referenced by the Agent only.
+- `NasForWindows.Windows` isolates Windows-specific adapters, including hardware inventory and
+  metrics collection, and is referenced by the Agent only.
 - The API must not reference the Agent or Windows adapter project.
 - The Agent must not reference the API or Plugin SDK.
 - The Manager must not reference the API host, Agent host, or Windows adapter project. Its presentation dependency must not leak into libraries.
+- Hardware inventory and metrics flow through typed, current-user ACL-protected local IPC. The API
+  never reads WMI, CIM, DXGI, performance counters, disks, or other Windows hardware APIs directly.
 
 ## Plugin boundary
 

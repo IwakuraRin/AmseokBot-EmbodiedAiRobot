@@ -90,6 +90,28 @@ public sealed class ProjectBoundaryTests
         Assert.Equal(["apps/manager/NasForWindows.Manager.csproj"], projectsUsingSpectreConsole);
     }
 
+    [Fact]
+    public void SystemManagementIsConfinedToWindowsAdapter()
+    {
+        var repositoryRoot = FindRepositoryRoot();
+        var projectsUsingSystemManagement = Directory
+            .EnumerateFiles(repositoryRoot.FullName, "*.csproj", SearchOption.AllDirectories)
+            .Where(project => !project.Contains(
+                $"{Path.DirectorySeparatorChar}obj{Path.DirectorySeparatorChar}",
+                StringComparison.Ordinal))
+            .Where(project => XDocument
+                .Load(project)
+                .Descendants("PackageReference")
+                .Any(element => string.Equals(
+                    element.Attribute("Include")?.Value,
+                    "System.Management",
+                    StringComparison.OrdinalIgnoreCase)))
+            .Select(project => Path.GetRelativePath(repositoryRoot.FullName, project).Replace('\\', '/'))
+            .ToArray();
+
+        Assert.Equal(["libs/NasForWindows.Windows/NasForWindows.Windows.csproj"], projectsUsingSystemManagement);
+    }
+
     [Theory]
     [InlineData("libs/NasForWindows.Contracts/NasForWindows.Contracts.csproj")]
     [InlineData("libs/NasForWindows.Operations/NasForWindows.Operations.csproj")]

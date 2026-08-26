@@ -14,6 +14,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>NasForWindows.Agent.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\libs\NasForWindows.Contracts\NasForWindows.Contracts.csproj" />
     <ProjectReference Include="..\..\libs\NasForWindows.Operations\NasForWindows.Operations.csproj" />
     <ProjectReference Include="..\..\libs\NasForWindows.Windows\NasForWindows.Windows.csproj" />
